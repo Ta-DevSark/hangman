@@ -1,32 +1,27 @@
 import random
 class Hangman:
-    def __init__(self, word):
-        self.word = word
+    def __init__(self):
         self.possible_words = ['sunflower', 'pho','rambunctious','serendipity','miscellaneous','becode', 'learning', 'mathematics', 'sessions']
-        self.word_to_find = list(random.choice(self.possible_words))
+        self.word_to_find = random.choice(self.possible_words).upper()
         self.lives = 5
-        self.correctly_guessed_letters = ["_"] * len(word)
+        self.correctly_guessed_letters = [" _ "] * len( self.word_to_find)
         self.wrongly_guessed_letters = []
         self.turn_count= 0
         self.error_count = 0
 
     def play(self):
         print("Let's play Hangman!")
-        print(f"You have {self.lives} lives!")
-        print(self.correctly_guessed_letters)
-        
-        while self.lives > 0:
+        display = ' '.join(self.correctly_guessed_letters)
+        print(f"Guess the word : {display}")
+        victory = False
+                        
+        while self.lives > 0 and not victory:
+            print(f"You have {self.lives} lives!")
             guess = input("Enter a letter: ").upper()
-            if guess in self.word_to_find:
-                print(f"{guess} is in the word!")
-                new_correct_letters = ""
-                for i, letter in enumerate(self.word_to_find):
-                    if letter == guess:
-                        new_correct_letters += letter
-                    else:
-                        new_correct_letters += self.correctly_guessed_letters[i]
-                self.correctly_guessed_letters = new_correct_letters
-                self.turn_count += 1
+
+            if len(guess) > 1 or not guess.isalpha():
+                print(f"{guess} is not a valid letter !")
+                
 
             elif guess not in self.word_to_find:
                 print(f"{guess} is not in the word!")
@@ -35,17 +30,25 @@ class Hangman:
                 self.error_count += 1
                 self.turn_count += 1
                 
-            elif len(guess) > 1 or not guess.isalpha():
-                print(f"{guess} is not a valid letter !")
-            
+            else:
+                print(f"{guess} is in the word!")
+                for index, letter in enumerate(list(self.word_to_find)):
+                    if letter == guess:
+                        self.correctly_guessed_letters[index] = letter
+                        self.turn_count += 1
+                        if self.correctly_guessed_letters == list(self.word_to_find):
+                            victory = True
+    
+            print(f"Correctly guessed letters : {self.correctly_guessed_letters},\nWrongly guessed letters : {self.wrongly_guessed_letters}\nLives left : {self.lives}\nErrors : {self.error_count}\nNumber of turns : {self.turn_count}")
+
     def start_game(self):
         self.play()
-        print(f"{self.correctly_guessed_letters},\n{self.wrongly_guessed_letters},\n{self.lives},\n{self.error_count},\n{self.turn_count}")
+        
         if self.lives == 0:
-            self.game_over()
+            return self.game_over()
         else:
-            self.well_played()
-
+            return self.well_played()
+    
     def game_over(self):
         print("game over...")
     
@@ -53,4 +56,11 @@ class Hangman:
         print(f"You found the word: {self.word_to_find}", 
                 f"in {self.turn_count} turns with {self.error_count} errors!")
         
-Hangman("test").start_game()
+Hangman().start_game()
+
+
+"""The purpose of OOP is to separate data into useful sections then be able to section off the functions that manipulate the data into methods, 
+so you can control how the data is managed and also have the code in nice neat sections.
+
+In hangman, there is no reason you would want this. You don't have individually functioning parts. 
+Everything works together, don't use OOP. All it does is make the code harder to understand."""
