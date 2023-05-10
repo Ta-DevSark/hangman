@@ -24,7 +24,7 @@ This game was created by [Me, my.self and I]. If you would like to contribute to
 
 ## Timeline
 
-This project was completed on 10/02/2023.
+This project was completed on 10/05/2023.
 
 ## Personal Situation
 
