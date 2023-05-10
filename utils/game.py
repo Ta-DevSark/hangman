@@ -65,6 +65,10 @@ class Hangman():
         Number of turns : {self.turn_count}""")
 
     def start_game(self):
+        """
+        This function launches the game, checks the amount of lives left and 
+        returns a game over or a well played function when the condition is met.
+        """
         print("Let's play Hangman!")
         print(f"You have {self.lives} lives!")
         display = ' '.join(self.correctly_guessed_letters)
@@ -79,9 +83,15 @@ class Hangman():
             return self.well_played()
     
     def game_over(self):
+        """
+        This function is pretty self-explanatory, isn't it ?
+        """
         print(f"game over...the correct word is {self.word_to_find}")
     
     def well_played(self):
+        """
+        Well played, you've reached the end of my code
+        """
         print(f"You found the word: {self.word_to_find}", 
                 f"in {self.turn_count} turns with {self.error_count} errors!")
         
