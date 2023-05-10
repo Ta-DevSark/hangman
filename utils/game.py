@@ -16,9 +16,9 @@ class Hangman():
         self.possible_words = ['sunflower', 'pho', 'rambunctious', 'serendipity',
                                'miscellaneous', 'becode', 'learning', 'mathematics', 'sessions',
                                'deleted', 'cautious', 'nonetheless', 'ravenous', 'pythonic']
-        self.word_to_find = random.choice(self.possible_words).upper()
+        self.word_to_find = list(random.choice(self.possible_words).upper())
         self.lives = 5
-        self.correctly_guessed_letters = [" _ "] * len( self.word_to_find)
+        self.correctly_guessed_letters = [" _ "] * len(self.word_to_find)
         self.wrongly_guessed_letters = []
         self.turn_count= 0
         self.error_count = 0
@@ -37,7 +37,7 @@ class Hangman():
 
         if len(guess) > 1 or not guess.isalpha(): #if the input is more than 1 letter or not a letter
             print(f"{guess} is not a valid letter !")
-            
+            return
         elif guess not in self.word_to_find:
             print(f"{guess} is not in the word!")
             self.wrongly_guessed_letters.append(guess)
@@ -48,14 +48,14 @@ class Hangman():
         else:
             print(f"{guess} is in the word!")
             self.turn_count += 1
-            for index, letter in enumerate(list(self.word_to_find)):
+            for index, letter in enumerate(self.word_to_find):
                 #this loop looks at each letter 
                 #in the word the user has to find 
                 #and in the next line, compares it
                 #to the input guess from the user.
                 if letter == guess:
                     self.correctly_guessed_letters[index] = letter
-                    if self.correctly_guessed_letters == list(self.word_to_find):
+                    if self.correctly_guessed_letters == self.word_to_find:
                         self.victory = True
 
         print(f"""Correctly guessed letters : {self.correctly_guessed_letters},
@@ -86,7 +86,7 @@ class Hangman():
         """
         This function is pretty self-explanatory, isn't it ?
         """
-        print(f"game over...the correct word is {self.word_to_find}")
+        print(f"game over...the correct word is {''.join(self.word_to_find)}")
     
     def well_played(self):
         """
@@ -94,8 +94,12 @@ class Hangman():
         """
         print(f"You found the word: {self.word_to_find}", 
                 f"in {self.turn_count} turns with {self.error_count} errors!")
-        
-Hangman().start_game()
+
+if __name__ == "__main__":
+    import time
+    start = time.time()        
+    Hangman().start_game()
+    print(time.time() - start)
 
 """The purpose of OOP is to separate data into useful sections then be able to section 
 off the functions that manipulate the data into methods, 
