@@ -5,18 +5,20 @@ class Hangman():
     letter to distinguish it from variables and functions.
     You can call a class as a whole or function by function at the end of your code.
     """
+
+    possible_words = ['sunflower', 'pho', 'rambunctious', 'serendipity',
+                               'miscellaneous', 'becode', 'learning', 'mathematics', 'sessions',
+                               'deleted', 'cautious', 'nonetheless', 'ravenous', 'pythonic']
+    
     def __init__(self):
         """
         This is the constructor of the Hangman class. 
         It contains the attributes that you are going to use throughout the code.
         The constructor always has at least 1 parameter, "self".
         Every attribute has to refer to the class through the '.self', otherwise it becomes 
-        a regular variable.
+        a regular variable, just like the "possible_words" class variable above.
         """
-        self.possible_words = ['sunflower', 'pho', 'rambunctious', 'serendipity',
-                               'miscellaneous', 'becode', 'learning', 'mathematics', 'sessions',
-                               'deleted', 'cautious', 'nonetheless', 'ravenous', 'pythonic']
-        self.word_to_find = list(random.choice(self.possible_words).upper())
+        self.word_to_find = list(random.choice(Hangman.possible_words).upper())
         self.lives = 5
         self.correctly_guessed_letters = [" _ "] * len(self.word_to_find)
         self.wrongly_guessed_letters = []

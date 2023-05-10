@@ -4,6 +4,6 @@ while True:
     hangman = Hangman()
     hangman.start_game()
 
-    prompt = input("Want another one Y/N?").lower()
+    prompt = input("Play again Y/N?").lower()
     if prompt != 'y':
         break
